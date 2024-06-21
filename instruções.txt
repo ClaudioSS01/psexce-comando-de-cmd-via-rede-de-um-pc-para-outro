@@ -1,0 +1,75 @@
+basta descompliar a pasta e colcar o conteudo no system32 
+
+deis é só saber o nome da maquina que vc quer mandar o comando e que ela esteja na mesma rede que vc
+
+e vc precisa saber um usuario e senha adm na maquina que vc quer mandar o comando.
+
+exemplos de comando do psexc
+
+PEGAR OS ARQUIVOS DA PASTA PSTOOLS E COLOCAR DIRETAMENTE NA MAQUINA QUE 
+VAI SER USADA PARA ACESSAR AS DEMAIS
+
+A MAQUINA QUE VAI SER ACESSADA NAO PRECISA DE NADA
+
+SEGUE-SE ABAIXO EXEMPLOS DE USO
+
+===================================
+PSEXEC.EXE -i \\10.221.92.23 -u wocc\usaurioADM -p senhaDoUsuarioADM "cmd.exe"
+
+
+PSEXEC.EXE -i \\10.221.92.23 -u wocc\usaurioADM -p senhaDoUsuarioADM "cmd.exe" 
+
+
+PSEXEC.EXE -i \\10.221.92.23 -u wocc\usaurioADM -p senhaDoUsuarioADM "cmd.exe"
+
+
+PSEXEC.EXE -i \\10.221.92.23 -u wocc\usaurioADM -p senhaDoUsuarioADM "cmd.exe" 
+
+===========================================
+EM CASO DE ERRO::
+
+Error communicating with PsExec service on 10.221.92.23:
+O pipe foi finalizado.
+
+
+PARAR O PROCESSO DO PSEXEC::
+
+pskill \\10.221.92.23 -u administrador -p TIMogi PSEXESVC
+===================================
+
+
+'inicia um novo comando cmd
+'Set novocmd = CreateObject("WScript.Shell")
+
+'pega a serial tag da maquina que é o codigo da placa mae
+'qqcoisa = Not CBool(novocmd.run("psexec woccdti0002 cmd")) 
+
+'segue pegando o serial da plca
+'serialtagchamada = Not CBool(novocmd.run("wmic bios get serialnumber"))
+
+'pega resposta
+'serialtag = serialtagchamada.StdOut.ReadAll
+
+'pega o serial do windows da maquina
+'serialdowindowschamada = Not CBool(novocmd.run("wmic path softwarelicensingservice get oa3xoriginalproductkey"))
+
+'pega a resposta
+'serialdowindows = serialdowindowschamada.StdOut.ReadAll
+
+'msgbox("seria tag "&serialtag&" serial do windows "&serialdowindows&"")
+
+
+
+
+Set WshShell = CreateObject("WScript.Shell")
+PINGFlag = Not CBool(WshShell.run("psexec \\woccdti0002 cmd"))
+
+comando2 = ("wmic bios get serialnumber")
+
+strResultado = CreateObject("WScript.Shell").Exec(comando2).StdOut.ReadAll
+
+
+msgbox(strResultado)
+
+
+psexec \\woccdti0006 -u wocc\usaurioADM -p senhaDoUsuarioADM cmd
